@@ -1,12 +1,14 @@
-const usuarios = []
+
 
 function crearDaoUsuariosCache(){
+    const usuarios = []
     return{
         add: async (usuario, claveUnica) => {
         const existe = usuarios.some(u => {
             return u[claveUnica] === usuario[claveUnica]
         })
         if(existe){
+            
             return {added: 0}
         }else{
             usuarios.push(usuario)

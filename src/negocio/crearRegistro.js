@@ -1,18 +1,25 @@
-import usuario from "./modelos/usuario.js"
+import {usuario} from "./modelos/usuario.js"
+import {crearErrorDniEnUso} from "./errores/errorDniEnUso.js"
+import {crearErrorUsuarioNoEncontrado} from "./errores/errorUsuarioNoEncontrado.js"
 
 
-const asuntoMailRegistro = "Confirmación de reserva"
+
 
 
 function crearCURegistro(daoUsuarios, mailer){
     return{
-        ejecutar: (datos) => {
-            const registro = usuario(datos)
-            daoUsuarios.guardar(registro)
-            mailer.enviarConHtml("remitente", datos.emailUsuario, asuntoMailRegistro, crearMailRegistro(datos))
+        ejecutar: async (datos) => {
+            const registroUsuario = usuario(datos)
+            const {added} = await daoUsuarios.add(registroUsuario, 'dni') 
+            if(!added){
+                throw crearErrorDniEnUso("Ya existe un socio con este Dni")
+            }
+          await mailer.enviarConHtml("remitente", datos.email, asuntoMailRegistro, crearMailRegistro(datos))
         }
     } 
 }
+
+const asuntoMailRegistro = "Confirmación de reserva"
 
 function crearMailRegistro(datos){
     `<h1>Hola ${datos.nombre}, bienvenido a Ort Club!</h1>

@@ -1,16 +1,15 @@
 import express from 'express'
-import { usuario } from '../../negocio/modelos/usuario'
 
 function crearRouterUsuarios(apiUsuarios) {
     const routerUsuarios = express.Router()
 
     routerUsuarios.get('/', async (req, res, next) => {
         try {
-            const usuarios
+            let usuarios
             if(req.query.dni){
                 usuarios = await apiUsuarios.getByDni(req.query.dni)
             }else{
-                estudiantes = await apiUsuarios.getAll()
+                usuarios = await apiUsuarios.getAll()
             }
             res.json(usuarios)
         } catch (error) {
@@ -27,7 +26,7 @@ function crearRouterUsuarios(apiUsuarios) {
         }
     })
 
-    routerEstudiantes.use((error, req, res, next) => {
+    routerUsuarios.use((error, req, res, next) => {
         if (error.type === 'ERROR_DNI_EN_USO') {
           res.status(400)
         } else if (error.type === 'ERROR_DATOS_INVALIDOS') {
