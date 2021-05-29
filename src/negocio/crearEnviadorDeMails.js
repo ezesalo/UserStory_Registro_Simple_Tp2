@@ -35,7 +35,7 @@ function crearEnviadorDeMails(mail, pass){
             }
 
             try {
-                transporter.sendMail(mailOptions)
+                await transporter.sendMail(mailOptions)
                 console.log(`mail enviado`)
             } catch (err) {
                 console.log(`el mail no pudo ser enviado: ${err}`)
@@ -51,7 +51,7 @@ function crearEnviadorDeMails(mail, pass){
             }
 
             try {
-                transporter.sendMail(mailOptions)
+                await transporter.sendMail(mailOptions)
                 console.log(`mail enviado`)
             } catch (err) {
                 console.log(`el mail no pudo ser enviado: ${err}`)
@@ -70,7 +70,7 @@ function crearEnviadorDeMails(mail, pass){
             }
 
             try {
-                transporter.sendMail(mailOptions)
+                await transporter.sendMail(mailOptions)
                 console.log(`mail enviado`)
             } catch (err) {
                 console.log(`el mail no pudo ser enviado: ${err}`)
