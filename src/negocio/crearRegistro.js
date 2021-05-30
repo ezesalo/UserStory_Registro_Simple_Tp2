@@ -1,4 +1,5 @@
 import {usuario} from "./modelos/usuario.js"
+import { asuntoMailRegistro, generarCuerpoMailRegistro } from "../../static/mailRegistro.js"
 import {crearErrorDniEnUso} from "./errores/errorDniEnUso.js"
 
 function crearCURegistro(daoUsuarios, mailer){
@@ -9,17 +10,11 @@ function crearCURegistro(daoUsuarios, mailer){
             if(!added){
                  throw crearErrorDniEnUso(`Ya existe un usuario con el dni ${registroUsuario.dni}`)
             }
-          await mailer.enviarConHtml("remitente", datos.email, asuntoMailRegistro, crearMailRegistro(datos))
+          await mailer.enviarConHtml("remitente", datos.email, asuntoMailRegistro , generarCuerpoMailRegistro(datos))
         }
     } 
 }
 
-const asuntoMailRegistro = "Confirmación de reserva"
 
-function crearMailRegistro(datos){
-   return `<h1>Hola ${datos.nombre}, bienvenido a Ort Club!</h1>
-    
-    <p>La registracion ha sido completada de forma exitosa. Ya puedes volver a la página y gestionar tus reservas.</p>`
-}
 
 export {crearCURegistro}
