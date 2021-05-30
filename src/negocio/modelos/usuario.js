@@ -1,6 +1,6 @@
 import {crearErrorDatosInvalidos} from "../errores/errorDatosInvalidos.js"
 
-function usuario(datos){
+function crearUsuario(datos){
     const usuario = {}
     
     if(!datos.dni){
@@ -36,4 +36,4 @@ function usuario(datos){
     return usuario
 }
 
-export {usuario}
+export {crearUsuario}

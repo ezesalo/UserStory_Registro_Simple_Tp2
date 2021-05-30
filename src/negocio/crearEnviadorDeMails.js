@@ -1,4 +1,5 @@
 import nodemailer from 'nodemailer';
+import {crearErrorMailNoEnviado} from './errores/errorMailNoEnviado.js'
 
 /**
  * Al trabajar con enviarConAdjunto contemplar lo siguiente:
@@ -38,7 +39,7 @@ function crearEnviadorDeMails(mail, pass){
                 await transporter.sendMail(mailOptions)
                 console.log(`mail enviado`)
             } catch (err) {
-                console.log(`el mail no pudo ser enviado: ${err}`)
+                throw crearErrorMailNoEnviado(`Error al enviar el mail. ${err}`)
             } 
 
           },
@@ -54,7 +55,7 @@ function crearEnviadorDeMails(mail, pass){
                 await transporter.sendMail(mailOptions)
                 console.log(`mail enviado`)
             } catch (err) {
-                console.log(`el mail no pudo ser enviado: ${err}`)
+                throw crearErrorMailNoEnviado(`Error al enviar el mail. ${err}`)
             }
           },
           enviarConAdjunto: async (from, to, subject, html, nombreDeArchivo, url) => {
@@ -73,7 +74,7 @@ function crearEnviadorDeMails(mail, pass){
                 await transporter.sendMail(mailOptions)
                 console.log(`mail enviado`)
             } catch (err) {
-                console.log(`el mail no pudo ser enviado: ${err}`)
+                throw crearErrorMailNoEnviado(`Error al enviar el mail. ${err}`)
             }
           }    
       }
