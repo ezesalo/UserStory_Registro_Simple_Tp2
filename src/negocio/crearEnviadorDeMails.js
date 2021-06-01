@@ -15,6 +15,8 @@ import {crearErrorMailNoEnviado} from './errores/errorMailNoEnviado.js'
 
 function crearEnviadorDeMails(mail, pass){
   
+    const remitente = "remitente"
+
     const transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",
         port: 465,
@@ -27,9 +29,9 @@ function crearEnviadorDeMails(mail, pass){
 
       return{
           
-          enviarConTexto: async (from, to, subject, text) => {
+          enviarConTexto: async (to, subject, text) => {
             const mailOptions = {
-                from: from,
+                from: remitente,
                 to: to,
                 subject: subject,
                 text: text
@@ -43,9 +45,9 @@ function crearEnviadorDeMails(mail, pass){
             } 
 
           },
-          enviarConHtml: async (from, to, subject, html) => {
+          enviarConHtml: async (to, subject, html) => {
             const mailOptions = {
-                from: from,
+                from: remitente,
                 to: to,
                 subject: subject,
                 html: html
@@ -58,9 +60,9 @@ function crearEnviadorDeMails(mail, pass){
                 throw crearErrorMailNoEnviado(`Error al enviar el mail. ${err}`)
             }
           },
-          enviarConAdjunto: async (from, to, subject, html, nombreDeArchivo, url) => {
+          enviarConAdjunto: async (to, subject, html, nombreDeArchivo, url) => {
             const mailOptions = {
-                from: from,
+                from: remitente,
                 to: to,
                 subject: subject,
                 html: html,
